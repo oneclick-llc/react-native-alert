@@ -33,14 +33,14 @@ type DestructiveButton = {
 };
 
 type AlertParams = {
-  title: string;
+  title?: string;
   message?: string;
   buttons?: Array<CancelButton | DefaultButton | DestructiveButton>;
   theme?: 'dark' | 'light' | 'system';
 };
 
 type PromptParams = {
-  title: string;
+  title?: string;
   message?: string;
   buttons?: Array<InputButton | CancelButton>;
   type?: AlertType;
@@ -112,7 +112,7 @@ export class Alert {
 
     AlertManager.alertWithArgs(
       {
-        title: params.title || '',
+        title: params.title || undefined,
         message: params.message || undefined,
         buttons,
         type: params.type || 'plain-text',
