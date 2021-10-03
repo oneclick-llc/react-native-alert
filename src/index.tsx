@@ -115,7 +115,7 @@ export class Alert {
         title: params.title || '',
         message: params.message || undefined,
         buttons,
-        type: params.type || undefined,
+        type: params.type || 'plain-text',
         defaultValue: params.defaultValue,
         cancelButtonKey,
         destructiveButtonKey: undefined,
