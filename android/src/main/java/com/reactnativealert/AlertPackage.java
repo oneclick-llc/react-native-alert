@@ -12,11 +12,11 @@ import java.util.List;
 public class AlertPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return Collections.emptyList();
+        return Arrays.asList(new AlertViewManager(reactContext));
     }
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Arrays.<ViewManager>asList(new AlertViewManager());
+        return Collections.emptyList();
     }
 }

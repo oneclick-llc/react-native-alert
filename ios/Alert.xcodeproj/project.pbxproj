@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-
-		5E555C0D2413F4C50049A1A2 /* Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Alert.m */; };
-
+		92B65B632709782000757FD8 /* AlertViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B65B622709782000757FD8 /* AlertViewManager.m */; };
+		92B65B672709787200757FD8 /* RCTAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B65B662709787200757FD8 /* RCTAlertController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,10 +25,10 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libAlert.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAlert.a; sourceTree = BUILT_PRODUCTS_DIR; };
-
-		B3E7B5881CC2AC0600A0062D /* Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alert.h; sourceTree = "<group>"; };
-		B3E7B5891CC2AC0600A0062D /* Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alert.m; sourceTree = "<group>"; };
-
+		92B65B622709782000757FD8 /* AlertViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewManager.m; sourceTree = "<group>"; };
+		92B65B642709783C00757FD8 /* RCTAlertManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAlertManager.h; sourceTree = "<group>"; };
+		92B65B652709786100757FD8 /* RCTAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAlertController.h; sourceTree = "<group>"; };
+		92B65B662709787200757FD8 /* RCTAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAlertController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,10 +53,10 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-
-				B3E7B5881CC2AC0600A0062D /* Alert.h */,
-				B3E7B5891CC2AC0600A0062D /* Alert.m */,
-
+				92B65B662709787200757FD8 /* RCTAlertController.m */,
+				92B65B652709786100757FD8 /* RCTAlertController.h */,
+				92B65B642709783C00757FD8 /* RCTAlertManager.h */,
+				92B65B622709782000757FD8 /* AlertViewManager.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -119,9 +118,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
-				B3E7B58A1CC2AC0600A0062D /* Alert.m in Sources */,
-
+				92B65B672709787200757FD8 /* RCTAlertController.m in Sources */,
+				92B65B632709782000757FD8 /* AlertViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +232,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Alert;
 				SKIP_INSTALL = YES;
-
 			};
 			name = Debug;
 		};
@@ -251,7 +248,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Alert;
 				SKIP_INSTALL = YES;
-
 			};
 			name = Release;
 		};

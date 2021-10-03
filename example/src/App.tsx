@@ -1,12 +1,49 @@
 import * as React from 'react';
 
-import { StyleSheet, View } from 'react-native';
-import { AlertView } from 'react-native-alert';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert } from 'react-native-alert';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <AlertViewManager color="#32a852" style={styles.box} />
+      <TouchableOpacity
+        style={{ marginTop: 100 }}
+        onPress={() => {
+          Alert.prompt({
+            defaultValue: 'some',
+            type: 'secure-text',
+            message: 'ssss',
+            theme: 'light',
+            title: 'some title',
+            keyboardType: 'decimal-pad',
+            buttons: [
+              {
+                style: 'destructive',
+                text: 'destructive',
+                onPress: () => {
+                  console.log('click destructive');
+                },
+              },
+              {
+                style: 'cancel',
+                text: 'cancel',
+                onPress: () => {
+                  console.log('click cancel');
+                },
+              },
+              {
+                style: 'default',
+                text: 'positive',
+                onPress: (va) => {
+                  console.log('click default', va);
+                },
+              },
+            ],
+          });
+        }}
+      >
+        <Text>Press</Text>
+      </TouchableOpacity>
     </View>
   );
 }
