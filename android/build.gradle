@@ -1,61 +1,71 @@
-buildscript {
-    if (project == rootProject) {
-        repositories {
-            google()
-            mavenCentral()
-            jcenter()
-        }
+def safeExtGet(prop, fallback) {
+  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
 
-        dependencies {
-            classpath 'com.android.tools.build:gradle:3.5.3'
-        }
+buildscript {
+  def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : '1.5.20'
+  ext.kotlin_version = kotlin_version
+  if (project == rootProject) {
+    repositories {
+      google()
+      mavenCentral()
+      jcenter()
     }
+
+    dependencies {
+      classpath 'com.android.tools.build:gradle:3.5.3'
+    }
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
 }
 
 apply plugin: 'com.android.library'
-
-def safeExtGet(prop, fallback) {
-    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion safeExtGet('Alert_compileSdkVersion', 29)
-    defaultConfig {
-        minSdkVersion safeExtGet('Alert_minSdkVersion', 16)
-        targetSdkVersion safeExtGet('Alert_targetSdkVersion', 29)
-        versionCode 1
-        versionName "1.0"
+  compileSdkVersion safeExtGet('Alert_compileSdkVersion', 29)
+  defaultConfig {
+    minSdkVersion safeExtGet('Alert_minSdkVersion', 16)
+    targetSdkVersion safeExtGet('Alert_targetSdkVersion', 29)
+    versionCode 1
+    versionName "1.0"
 
-    }
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
+  buildTypes {
+    release {
+      minifyEnabled false
     }
-    lintOptions {
-        disable 'GradleCompatible'
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+  }
+  lintOptions {
+    disable 'GradleCompatible'
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 repositories {
-    mavenLocal()
-    maven {
-        // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-        url("$rootDir/../node_modules/react-native/android")
-    }
-    google()
-    mavenCentral()
-    jcenter()
+  mavenLocal()
+  maven {
+    // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+    url("$rootDir/../node_modules/react-native/android")
+  }
+  google()
+  mavenCentral()
+  jcenter()
 }
 
 dependencies {
-    //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+  //noinspection GradleDynamicVersion
+  implementation "com.facebook.react:react-native:+"  // From node_modules
   implementation 'com.afollestad.material-dialogs:core:3.3.0'
   implementation 'com.afollestad.material-dialogs:input:3.3.0'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
