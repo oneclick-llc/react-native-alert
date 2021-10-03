@@ -19,24 +19,30 @@ const AlertManager = NativeModules.AlertManager
 
 export type AlertType = 'default' | 'plain-text' | 'secure-text';
 
-export type AlertButtonStyle = 'default' | 'cancel' | 'destructive';
-export type Buttons = Array<{
-  text?: string;
-  onPress?: () => void;
-  style?: AlertButtonStyle;
-}>;
+type DefaultButton = { text: string; onPress: () => void; style: 'default' };
+type InputButton = {
+  text: string;
+  onPress: (value: string) => void;
+  style: 'default';
+};
+type CancelButton = { text: string; onPress: () => void; style: 'cancel' };
+type DestructiveButton = {
+  text: string;
+  onPress: () => void;
+  style: 'destructive';
+};
 
 type AlertParams = {
   title: string;
   message?: string;
-  buttons?: Buttons;
+  buttons?: Array<CancelButton | DefaultButton | DestructiveButton>;
   theme?: 'dark' | 'light' | 'system';
 };
 
 type PromptParams = {
   title: string;
   message?: string;
-  buttons?: Buttons;
+  buttons?: Array<InputButton | CancelButton>;
   type?: AlertType;
   theme?: 'dark' | 'light' | 'system';
   defaultValue?: string;
@@ -45,14 +51,7 @@ type PromptParams = {
 
 export class Alert {
   static alert(params: AlertParams) {
-    Alert.prompt({
-      ...params,
-      type: 'default',
-    });
-  }
-
-  static prompt(params: PromptParams): void {
-    let callbacks: Record<number, (text: string) => void> = [];
+    let callbacks: Record<number, () => void> = [];
     const buttons: Array<Record<number, string>> = [];
     let cancelButtonKey;
     let destructiveButtonKey;
@@ -78,10 +77,48 @@ export class Alert {
         title: params.title || '',
         message: params.message || undefined,
         buttons,
+        type: 'default',
+        defaultValue: undefined,
+        cancelButtonKey,
+        destructiveButtonKey,
+        keyboardType: undefined,
+        theme: params.theme,
+      },
+      (id: number) => {
+        const cb = callbacks[id];
+        cb?.();
+      }
+    );
+  }
+
+  static prompt(params: PromptParams): void {
+    let callbacks: Record<number, (text: string) => void> = [];
+    const buttons: Array<Record<number, string>> = [];
+    let cancelButtonKey;
+    if (params.buttons) {
+      const paramsButtons = params.buttons;
+      paramsButtons.forEach((btn, index) => {
+        if (btn.onPress) callbacks[index] = btn.onPress;
+        if (btn.style === 'cancel') {
+          cancelButtonKey = String(index);
+        }
+        if (btn.text || index < paramsButtons.length - 1) {
+          const btnDef: Record<number, string> = {};
+          btnDef[index] = btn.text || '';
+          buttons.push(btnDef);
+        }
+      });
+    }
+
+    AlertManager.alertWithArgs(
+      {
+        title: params.title || '',
+        message: params.message || undefined,
+        buttons,
         type: params.type || undefined,
         defaultValue: params.defaultValue,
         cancelButtonKey,
-        destructiveButtonKey,
+        destructiveButtonKey: undefined,
         keyboardType: params.keyboardType,
         theme: params.theme,
       },

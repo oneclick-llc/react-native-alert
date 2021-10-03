@@ -13,25 +13,32 @@ Main goal of this library is that support prompt for android and looks more beau
 ```typescript
 import {Alert} from 'react-native-alert';
 
-type AlertType = 'default' | 'plain-text' | 'secure-text';
-type AlertButtonStyle = 'default' | 'cancel' | 'destructive';
-type Buttons = Array<{
-  text?: string;
-  onPress?: () => void;
-  style?: AlertButtonStyle;
-}>;
+export type AlertType = 'default' | 'plain-text' | 'secure-text';
+
+type DefaultButton = { text: string; onPress: () => void; style: 'default' };
+type InputButton = {
+  text: string;
+  onPress: (value: string) => void;
+  style: 'default';
+};
+type CancelButton = { text: string; onPress: () => void; style: 'cancel' };
+type DestructiveButton = {
+  text: string;
+  onPress: () => void;
+  style: 'destructive';
+};
 
 type AlertParams = {
   title: string;
   message?: string;
-  buttons?: Buttons;
+  buttons?: Array<CancelButton | DefaultButton | DestructiveButton>;
   theme?: 'dark' | 'light' | 'system';
 };
 
 type PromptParams = {
   title: string;
   message?: string;
-  buttons?: Buttons;
+  buttons?: Array<InputButton | CancelButton>;
   type?: AlertType;
   theme?: 'dark' | 'light' | 'system';
   defaultValue?: string;
