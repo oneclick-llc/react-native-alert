@@ -9,12 +9,11 @@ export default function App() {
       <TouchableOpacity
         style={{ marginTop: 100 }}
         onPress={() => {
-          Alert.prompt({
+          Alert.alert({
             defaultValue: 'some',
             type: 'secure-text',
-            message: 'ssss',
+            title: 'lorem ipsum dollar',
             theme: 'light',
-            title: 'some title',
             keyboardType: 'decimal-pad',
             buttons: [
               {

@@ -8,11 +8,15 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.InputType
 import android.view.ContextThemeWrapper
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
+import com.afollestad.materialdialogs.callbacks.onPreShow
 import com.afollestad.materialdialogs.input.input
+import com.afollestad.materialdialogs.utils.MDUtil.updatePadding
 import com.facebook.common.logging.FLog
 import com.facebook.react.bridge.*
 import com.facebook.react.common.MapBuilder
@@ -77,11 +81,17 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
       val contextThemeWrapper = ContextThemeWrapper(currentActivity, R.style.MyDialogStyleLight)
       val materialDialog = MaterialDialog(contextThemeWrapper)
       materialDialog.cancelable(false)
-      if (title != null) materialDialog.title(null, title)
-      if (message != null) materialDialog.message(null, message, null)
+      if (title != null && title.isNotEmpty()) {
+        materialDialog.title(null, title)
+      }
+      if (message != null && message.isNotEmpty()) {
+        materialDialog.message(null, message, null)
+      } else {
+        materialDialog.view.contentLayout.visibility = View.GONE
+      }
       if (neutral != null) {
         materialDialog.neutralButton(text = neutral) { onClick(Dialog.BUTTON_NEUTRAL, arguments, actionCallback) }
-        materialDialog.view.buttonsLayout!!.actionButtons[WhichButton.NEUTRAL.index].setTypeface(Typeface.DEFAULT_BOLD)
+        materialDialog.view.buttonsLayout!!.actionButtons[WhichButton.NEUTRAL.index].typeface = Typeface.DEFAULT_BOLD
       }
       if (positive != null) {
         materialDialog.positiveButton(text = positive) {
@@ -160,15 +170,15 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
           var title = ""
           for (buttonTitle in values) title = buttonTitle as String
           when (key) {
-              cancelButtonKey -> {
-                args.putString(AlertFragment.ARG_BUTTON_NEUTRAL, title)
-              }
-              destructiveButtonKey -> {
-                args.putString(AlertFragment.ARG_BUTTON_NEGATIVE, title)
-              }
-              else -> {
-                args.putString(AlertFragment.ARG_BUTTON_POSITIVE, title)
-              }
+            cancelButtonKey -> {
+              args.putString(AlertFragment.ARG_BUTTON_NEUTRAL, title)
+            }
+            destructiveButtonKey -> {
+              args.putString(AlertFragment.ARG_BUTTON_NEGATIVE, title)
+            }
+            else -> {
+              args.putString(AlertFragment.ARG_BUTTON_POSITIVE, title)
+            }
           }
         }
       }
