@@ -19,16 +19,16 @@ const AlertManager = NativeModules.AlertManager
 
 export type AlertType = 'default' | 'plain-text' | 'secure-text';
 
-type DefaultButton = { text: string; onPress: () => void; style: 'default' };
+type DefaultButton = { text: string; onPress?: () => void; style: 'default' };
 type InputButton = {
   text: string;
-  onPress: (value: string) => void;
+  onPress?: (value: string) => void;
   style: 'default';
 };
-type CancelButton = { text: string; onPress: () => void; style: 'cancel' };
+type CancelButton = { text: string; onPress?: () => void; style: 'cancel' };
 type DestructiveButton = {
   text: string;
-  onPress: () => void;
+  onPress?: () => void;
   style: 'destructive';
 };
 
