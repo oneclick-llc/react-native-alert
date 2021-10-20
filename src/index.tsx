@@ -56,7 +56,8 @@ export class Alert {
     let cancelButtonKey;
     let destructiveButtonKey;
     if (params.buttons === undefined || params.buttons.length === 0) {
-      params.buttons?.push({text: 'Ok', style: 'default', onPress: () => {}})
+      params.buttons = [];
+      params.buttons?.push({ text: 'Ok', style: 'default', onPress: () => {} });
     }
     if (params.buttons) {
       const paramsButtons = params.buttons;
@@ -99,6 +100,7 @@ export class Alert {
     const buttons: Array<Record<number, string>> = [];
     let cancelButtonKey;
     if (params.buttons === undefined || params.buttons.length === 0) {
+      params.buttons = [];
       params.buttons?.push({ text: 'Ok', style: 'default', onPress: () => {} });
     }
     if (params.buttons) {
