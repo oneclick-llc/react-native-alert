@@ -55,6 +55,9 @@ export class Alert {
     const buttons: Array<Record<number, string>> = [];
     let cancelButtonKey;
     let destructiveButtonKey;
+    if (params.buttons === undefined || params.buttons.length === 0) {
+      params.buttons?.push({text: 'Ok', style: 'default', onPress: () => {}})
+    }
     if (params.buttons) {
       const paramsButtons = params.buttons;
       paramsButtons.forEach((btn, index) => {
@@ -95,6 +98,9 @@ export class Alert {
     let callbacks: Record<number, (text: string) => void> = [];
     const buttons: Array<Record<number, string>> = [];
     let cancelButtonKey;
+    if (params.buttons === undefined || params.buttons.length === 0) {
+      params.buttons?.push({ text: 'Ok', style: 'default', onPress: () => {} });
+    }
     if (params.buttons) {
       const paramsButtons = params.buttons;
       paramsButtons.forEach((btn, index) => {
