@@ -5,7 +5,7 @@ Main goal of this library is that support prompt for android and looks more beau
 
 
 ###### package.json
-`"react-native-alert": "sergeymild/react-native-alert"`
+`"react-native-alert": "sergeymild/react-native-alert#0.3.0"`
 
 `$ yarn`
 
