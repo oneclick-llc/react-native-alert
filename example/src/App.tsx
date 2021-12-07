@@ -13,7 +13,7 @@ export default function App() {
             defaultValue: 'some',
             type: 'secure-text',
             title: 'lorem ipsum dollar',
-            theme: 'light',
+            theme: 'dark',
             keyboardType: 'decimal-pad',
             buttons: [
               {

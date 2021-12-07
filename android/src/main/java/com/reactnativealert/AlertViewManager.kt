@@ -2,25 +2,19 @@ package com.reactnativealert
 
 import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.InputType
 import android.view.ContextThemeWrapper
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
-import com.afollestad.materialdialogs.callbacks.onPreShow
 import com.afollestad.materialdialogs.input.input
-import com.afollestad.materialdialogs.utils.MDUtil.updatePadding
 import com.facebook.common.logging.FLog
 import com.facebook.react.bridge.*
-import com.facebook.react.common.MapBuilder
-import com.reactnativealert.AlertViewManager
 import java.util.*
 
 class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBaseJavaModule(reactContext), LifecycleEventListener {
@@ -78,7 +72,11 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
       val title = arguments.getString(AlertFragment.ARG_TITLE)
       val message = arguments.getString(AlertFragment.ARG_MESSAGE)
       val keyBoardType = arguments.getString(AlertFragment.ARG_KEYBOARD_TYPE)
-      val contextThemeWrapper = ContextThemeWrapper(currentActivity, R.style.MyDialogStyleLight)
+      val theme = arguments.getString(AlertFragment.ARG_THEME)
+      val contextThemeWrapper = ContextThemeWrapper(
+        currentActivity,
+        if (theme == "light") R.style.MyDialogStyleLight else R.style.MyDialogStyleDark
+      )
       val materialDialog = MaterialDialog(contextThemeWrapper)
       materialDialog.cancelable(false)
       if (title != null && title.isNotEmpty()) {
