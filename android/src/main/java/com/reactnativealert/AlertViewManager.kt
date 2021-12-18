@@ -120,8 +120,7 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
 
   @ReactMethod
   fun alertWithArgs(options: ReadableMap, actionCallback: Callback) {
-    val fragmentManagerHelper = fragmentManagerHelper
-      ?: throw RuntimeException("Tried to show an alert while not attached to an Activity")
+    val fragmentManagerHelper = fragmentManagerHelper ?: return
     val args = Bundle()
     if (options.hasKey("theme")) {
       args.putString(AlertFragment.ARG_THEME, options.getString("theme"))
