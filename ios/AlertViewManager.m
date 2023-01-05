@@ -15,21 +15,6 @@
 #import "CoreModulesPlugins.h"
 #import "RCTAlertController.h"
 
-@implementation RCTConvert (UIAlertViewStyle)
-
-RCT_ENUM_CONVERTER(
-                   RCTAlertViewStyle,
-                   (@{
-                    @"default" : @(RCTAlertViewStyleDefault),
-                    @"secure-text" : @(RCTAlertViewStyleSecureTextInput),
-                    @"plain-text" : @(RCTAlertViewStylePlainTextInput),
-                    @"login-password" : @(RCTAlertViewStyleLoginAndPasswordInput),
-                   }),
-                   RCTAlertViewStyleDefault,
-                   integerValue)
-
-@end
-
 @implementation AlertManager {
     NSHashTable *_alertControllers;
 }
@@ -68,7 +53,7 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
     NSString *title = [RCTConvert NSString:[args valueForKey:@"title"]];
     NSString *message = [RCTConvert NSString:[args valueForKey:@"message"]];
     NSString *theme = [RCTConvert NSString:[args valueForKey:@"theme"]];
-    RCTAlertViewStyle type = [RCTConvert RCTAlertViewStyle:[args valueForKey:@"type"]];
+    NSString *type = [RCTConvert NSString:[args valueForKey:@"type"]];
     NSObject* btns = [args valueForKey:@"buttons"];
     NSArray<NSDictionary *> *buttonsArray = [[NSArray<NSDictionary *> alloc] init];
     if (btns != NULL) {
@@ -86,7 +71,7 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
     }
     
     if (buttonsArray.count == 0) {
-        if (type == RCTAlertViewStyleDefault) {
+        if ([type isEqual: @"default"]) {
             buttonsArray = @[ @{@"0" : RCTUIKitLocalizedString(@"OK")} ];
             cancelButtonKey = @"0";
         } else {
@@ -115,38 +100,24 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
         }
     }
 
-    switch (type) {
-        case RCTAlertViewStylePlainTextInput: {
-            [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-                textField.secureTextEntry = NO;
-                textField.text = defaultValue;
-                textField.keyboardType = keyboardType;
-            }];
-            break;
-        }
-        case RCTAlertViewStyleSecureTextInput: {
-            [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-                textField.placeholder = RCTUIKitLocalizedString(@"Password");
-                textField.secureTextEntry = YES;
-                textField.text = defaultValue;
-                textField.keyboardType = keyboardType;
-            }];
-            break;
-        }
-        case RCTAlertViewStyleLoginAndPasswordInput: {
-            [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-                textField.placeholder = RCTUIKitLocalizedString(@"Login");
-                textField.text = defaultValue;
-                textField.keyboardType = keyboardType;
-            }];
-            [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-                textField.placeholder = RCTUIKitLocalizedString(@"Password");
-                textField.secureTextEntry = YES;
-            }];
-            break;
-        }
-        case RCTAlertViewStyleDefault:
-            break;
+    if ([type isEqualToString:@"plain-text"]) {
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.secureTextEntry = NO;
+            textField.text = defaultValue;
+            textField.keyboardType = keyboardType;
+        }];
+    }
+    
+    if ([type isEqualToString:@"secure-text"]) {
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.placeholder = RCTUIKitLocalizedString(@"Login");
+            textField.text = defaultValue;
+            textField.keyboardType = keyboardType;
+        }];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.placeholder = RCTUIKitLocalizedString(@"Password");
+            textField.secureTextEntry = YES;
+        }];
     }
     
     alertController.message = message;
@@ -169,25 +140,19 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
                     actionWithTitle:buttonTitle
                     style:buttonStyle
                     handler:^(__unused UIAlertAction *action) {
-            switch (type) {
-                case RCTAlertViewStylePlainTextInput:
-                case RCTAlertViewStyleSecureTextInput:
-                    callback(@[ buttonKey, [weakAlertController.textFields.firstObject text] ]);
-                    [weakAlertController hide];
-                    break;
-                case RCTAlertViewStyleLoginAndPasswordInput: {
-                    NSDictionary<NSString *, NSString *> *loginCredentials = @{
-                        @"login" : [weakAlertController.textFields.firstObject text],
-                        @"password" : [weakAlertController.textFields.lastObject text]
-                    };
-                    callback(@[ buttonKey, loginCredentials ]);
-                    [weakAlertController hide];
-                    break;
-                }
-                case RCTAlertViewStyleDefault:
-                    callback(@[ buttonKey ]);
-                    [weakAlertController hide];
-                    break;
+            if ([type isEqualToString:@"plain-text"] || [type isEqualToString:@"secure-text"]) {
+                callback(@[ buttonKey, [weakAlertController.textFields.firstObject text] ]);
+                [weakAlertController hide];
+            } else if ([type isEqualToString:@"default"]) {
+                callback(@[ buttonKey ]);
+                [weakAlertController hide];
+            } else {
+                NSDictionary<NSString *, NSString *> *loginCredentials = @{
+                    @"login" : [weakAlertController.textFields.firstObject text],
+                    @"password" : [weakAlertController.textFields.lastObject text]
+                };
+                callback(@[ buttonKey, loginCredentials ]);
+                [weakAlertController hide];
             }
         }]];
     }
