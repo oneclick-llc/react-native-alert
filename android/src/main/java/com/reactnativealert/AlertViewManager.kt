@@ -223,7 +223,7 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
   }
 
   companion object {
-    const val REACT_CLASS = "AlertManager"
+    const val REACT_CLASS = "RNAlert"
 
     /* package */
     const val ACTION_DISMISSED = "dismissed"
