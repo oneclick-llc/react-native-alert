@@ -19,7 +19,7 @@
     NSHashTable *_alertControllers;
 }
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(RNAlert)
 
 - (dispatch_queue_t)methodQueue
 {
