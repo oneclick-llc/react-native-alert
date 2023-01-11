@@ -6,8 +6,8 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo managed workflow\n';
 
-const AlertManager = NativeModules.AlertManager
-  ? NativeModules.AlertManager
+const AlertManager = NativeModules.RNAlert
+  ? NativeModules.RNAlert
   : new Proxy(
       {},
       {
