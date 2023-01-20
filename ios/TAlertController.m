@@ -7,15 +7,15 @@
 
 #import <React/RCTUtils.h>
 
-#import "RCTAlertController.h"
+#import "TAlertController.h"
 
-@interface AlertController ()
+@interface TAlertController ()
 
 @property (nonatomic, strong) UIWindow *alertWindow;
 
 @end
 
-@implementation AlertController
+@implementation TAlertController
 
 - (UIWindow *)alertWindow
 {

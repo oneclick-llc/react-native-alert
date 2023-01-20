@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "RCTAlertManager.h"
+#import "TAlertManager.h"
 
 #import <React/RCTAssert.h>
 #import <React/RCTConvert.h>
@@ -13,13 +13,13 @@
 #import <React/RCTUtils.h>
 
 #import "CoreModulesPlugins.h"
-#import "RCTAlertController.h"
+#import "TAlertController.h"
 
-@implementation AlertManager {
+@implementation TAlertController {
     NSHashTable *_alertControllers;
 }
 
-RCT_EXPORT_MODULE(RNAlert)
+RCT_EXPORT_MODULE(TAlertViewManager)
 
 - (dispatch_queue_t)methodQueue
 {
@@ -87,7 +87,7 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
         }
     }
     
-    AlertController *alertController = [AlertController alertControllerWithTitle:title
+    TAlertController *alertController = [TAlertController alertControllerWithTitle:title
                                                                          message:nil
                                                                   preferredStyle:UIAlertControllerStyleAlert];
     if ([theme  isEqual: @"light"]) {
@@ -138,7 +138,7 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
         } else if ([buttonKey isEqualToString:destructiveButtonKey]) {
             buttonStyle = UIAlertActionStyleDestructive;
         }
-        __weak AlertController *weakAlertController = alertController;
+        __weak TAlertController *weakAlertController = alertController;
         [alertController
          addAction:[UIAlertAction
                     actionWithTitle:buttonTitle

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		92B65B632709782000757FD8 /* AlertViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B65B622709782000757FD8 /* AlertViewManager.m */; };
-		92B65B672709787200757FD8 /* RCTAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B65B662709787200757FD8 /* RCTAlertController.m */; };
+		92B65B632709782000757FD8 /* TAlertViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B65B622709782000757FD8 /* TAlertViewManager.m */; };
+		92B65B672709787200757FD8 /* TAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B65B662709787200757FD8 /* TAlertController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,10 +25,10 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libAlert.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAlert.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		92B65B622709782000757FD8 /* AlertViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertViewManager.m; sourceTree = "<group>"; };
-		92B65B642709783C00757FD8 /* RCTAlertManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAlertManager.h; sourceTree = "<group>"; };
-		92B65B652709786100757FD8 /* RCTAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAlertController.h; sourceTree = "<group>"; };
-		92B65B662709787200757FD8 /* RCTAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAlertController.m; sourceTree = "<group>"; };
+		92B65B622709782000757FD8 /* TAlertViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAlertViewManager.m; sourceTree = "<group>"; };
+		92B65B642709783C00757FD8 /* TAlertManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAlertManager.h; sourceTree = "<group>"; };
+		92B65B652709786100757FD8 /* TAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAlertController.h; sourceTree = "<group>"; };
+		92B65B662709787200757FD8 /* TAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAlertController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,10 +53,10 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				92B65B662709787200757FD8 /* RCTAlertController.m */,
-				92B65B652709786100757FD8 /* RCTAlertController.h */,
-				92B65B642709783C00757FD8 /* RCTAlertManager.h */,
-				92B65B622709782000757FD8 /* AlertViewManager.m */,
+				92B65B662709787200757FD8 /* TAlertController.m */,
+				92B65B652709786100757FD8 /* TAlertController.h */,
+				92B65B642709783C00757FD8 /* TAlertManager.h */,
+				92B65B622709782000757FD8 /* TAlertViewManager.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,8 +118,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				92B65B672709787200757FD8 /* RCTAlertController.m in Sources */,
-				92B65B632709782000757FD8 /* AlertViewManager.m in Sources */,
+				92B65B672709787200757FD8 /* TAlertController.m in Sources */,
+				92B65B632709782000757FD8 /* TAlertViewManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

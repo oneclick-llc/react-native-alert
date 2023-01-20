@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AlertController : UIAlertController
+@interface TAlertController : UIAlertController
 
 - (void)show:(BOOL)animated completion:(void (^)(void))completion;
 - (void)hide;
