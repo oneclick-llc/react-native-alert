@@ -15,11 +15,10 @@
 #import "CoreModulesPlugins.h"
 #import "TAlertController.h"
 
-@implementation TAlertController {
-    NSHashTable *_alertControllers;
-}
+@implementation TAlertManager
+RCT_EXPORT_MODULE(RNAlert)
 
-RCT_EXPORT_MODULE(TAlertViewManager)
+NSHashTable *_alertControllers;
 
 - (dispatch_queue_t)methodQueue
 {
@@ -63,17 +62,17 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
     if (btns != NULL) {
         buttonsArray = [RCTConvert NSDictionaryArray:btns];
     }
-    
+
     NSString *defaultValue = [RCTConvert NSString:[args valueForKey:@"defaultValue"]];
     NSString *cancelButtonKey = [RCTConvert NSString:[args valueForKey:@"cancelButtonKey"]];
     NSString *destructiveButtonKey = [RCTConvert NSString:[args valueForKey:@"destructiveButtonKey"]];
     UIKeyboardType keyboardType = [RCTConvert UIKeyboardType:[args valueForKey:@"keyboardType"]];
-    
+
     if (!title && !message) {
         RCTLogError(@"Must specify either an alert title, or message, or both");
         return;
     }
-    
+
     if (buttonsArray.count == 0) {
         if ([type isEqual: @"default"]) {
             buttonsArray = @[ @{@"0" : RCTUIKitLocalizedString(@"OK")} ];
@@ -86,7 +85,7 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
             cancelButtonKey = @"1";
         }
     }
-    
+
     TAlertController *alertController = [TAlertController alertControllerWithTitle:title
                                                                          message:nil
                                                                   preferredStyle:UIAlertControllerStyleAlert];
@@ -111,7 +110,7 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
             textField.keyboardType = keyboardType;
         }];
     }
-    
+
     if ([type isEqualToString:@"secure-text"]) {
         [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
             textField.placeholder = RCTUIKitLocalizedString(@"Login");
@@ -123,9 +122,9 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
             textField.secureTextEntry = YES;
         }];
     }
-    
+
     alertController.message = message;
-    
+
     for (NSDictionary<NSString *, id> *button in buttonsArray) {
         if (button.count != 1) {
             RCTLogError(@"Button definitions should have exactly one key.");
@@ -160,12 +159,12 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
             }
         }]];
     }
-    
+
     if (!_alertControllers) {
         _alertControllers = [NSHashTable weakObjectsHashTable];
     }
     [_alertControllers addObject:alertController];
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         [alertController show:YES completion:nil];
     });
