@@ -36,6 +36,19 @@ NSHashTable *_alertControllers;
     }
 }
 
+RCT_EXPORT_METHOD(dismissTopPresented) {
+    NSUInteger count = _alertControllers.count;
+    NSUInteger index = 0;
+    for (UIAlertController *alertController in _alertControllers) {
+        if (index == count -1) {
+            [alertController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            [_alertControllers removeObject:alertController];
+            break;
+        }
+        index += 1;
+    }
+}
+
 /**
  * @param {NSDictionary} args Dictionary of the form
  *
