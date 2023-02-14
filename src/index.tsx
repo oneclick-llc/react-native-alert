@@ -50,6 +50,10 @@ type PromptParams = {
 };
 
 export class Alert {
+  static dismissTopPresented() {
+    AlertManager.dismissTopPresented()
+  }
+  
   static alert(params: AlertParams) {
     let callbacks: Record<number, () => void> = [];
     const buttons: Array<Record<number, string>> = [];
