@@ -9,6 +9,7 @@
 
 #import <React/RCTBridgeModule.h>
 #import <React/RCTInvalidating.h>
+#import "TAlertController.h"
 
 @interface TAlertManager : NSObject <RCTBridgeModule, RCTInvalidating>
 @property (weak, nonatomic) TAlertController *presentedAlert;
