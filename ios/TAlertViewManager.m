@@ -63,7 +63,7 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
                   callback:(RCTResponseSenderBlock)callback)
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
+        [self invalidate];
         NSString *title = [RCTConvert NSString:[args valueForKey:@"title"]];
         NSString *message = [RCTConvert NSString:[args valueForKey:@"message"]];
         NSString *theme = [RCTConvert NSString:[args valueForKey:@"theme"]];
@@ -170,11 +170,8 @@ RCT_EXPORT_METHOD(alertWithArgs:(NSDictionary*)args
                 }
             }]];
         }
-        
-        [alertController show:YES completion:nil];
+
         self.presentedAlert = alertController;
-        
-        
         [alertController show:YES completion:nil];
     });
 }
