@@ -49,6 +49,7 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
 
   @SuppressLint("CheckResult")
   fun showNewAlert(arguments: Bundle, actionCallback: Callback) {
+    val activity = currentActivity ?: return
     UiThreadUtil.assertOnUiThread()
     dismissTopPresented()
     val type = arguments.getString("type")
@@ -60,7 +61,7 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
     val keyBoardType = arguments.getString(AlertFragment.ARG_KEYBOARD_TYPE)
     val theme = arguments.getString(AlertFragment.ARG_THEME)
     val contextThemeWrapper = ContextThemeWrapper(
-      currentActivity,
+      activity,
       if (theme == "light") R.style.MyDialogStyleLight else R.style.MyDialogStyleDark
     )
     val materialDialog = MaterialDialog(contextThemeWrapper)
