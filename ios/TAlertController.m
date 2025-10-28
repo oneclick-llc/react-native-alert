@@ -20,7 +20,7 @@
 - (UIWindow *)alertWindow
 {
   if (_alertWindow == nil) {
-    _alertWindow = [[UIWindow alloc] initWithFrame:RCTSharedApplication().keyWindow.bounds];
+    _alertWindow = [[UIWindow alloc] initWithWindowScene:RCTKeyWindow().windowScene];
     _alertWindow.rootViewController = [UIViewController new];
     _alertWindow.windowLevel = UIWindowLevelAlert + 1;
   }
@@ -35,7 +35,15 @@
 
 - (void)hide
 {
-  _alertWindow = nil;
+  __weak typeof(self) weakSelf = self;
+  [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
+    if (weakSelf == nil) return;
+    [weakSelf.alertWindow setHidden:YES];
+
+    weakSelf.alertWindow.windowScene = nil;
+
+    weakSelf.alertWindow = nil;
+  }];
 }
 
 @end

@@ -27,10 +27,10 @@ RCT_EXPORT_MODULE(RNAlert)
 
 - (void)invalidate
 {
-    if (self.presentedAlert) {
-        [self.presentedAlert.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    }
+  if (self.presentedAlert) {
+    [self.presentedAlert hide];
     self.presentedAlert = NULL;
+  }
 }
 
 RCT_EXPORT_METHOD(dismissTopPresented) {
