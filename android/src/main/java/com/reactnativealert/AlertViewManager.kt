@@ -148,7 +148,7 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
       for (i in 0 until items.size()) {
         val button = items.getMap(i)
         val hashMap = button!!.toHashMap()
-        val values: Collection<Any> = hashMap.values
+        val values: Collection<Any> = hashMap.values.filterNotNull()
         val keys: Set<String> = hashMap.keys
         for (key in keys) {
           var title = ""
