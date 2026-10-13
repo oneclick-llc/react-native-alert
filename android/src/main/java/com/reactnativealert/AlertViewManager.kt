@@ -49,7 +49,7 @@ class AlertViewManager(reactContext: ReactApplicationContext?) : ReactContextBas
 
   @SuppressLint("CheckResult")
   fun showNewAlert(arguments: Bundle, actionCallback: Callback) {
-    val activity = currentActivity ?: return
+    val activity = reactApplicationContext.currentActivity ?: return
     UiThreadUtil.assertOnUiThread()
     dismissTopPresented()
     val type = arguments.getString("type")
